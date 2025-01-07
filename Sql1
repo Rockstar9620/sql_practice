@@ -131,3 +131,18 @@ select * from practice1
 select a.product_name,count(b.transaction_id) from practice a join practice1 b on a.product_id=b.product_id
 group by a.product_id,a.product_name
 order by a.product_id asc
+
+
+6.Write a query that calculates the difference between the highest salaries found in the marketing and engineering departments. Output just the absolute difference in salaries.
+
+INSERT INTO practice (id, first_name, last_name, salary, department_id) VALUES(10306, 'Ashley', 'Li', 28516, 4),(10307, 'Joseph', 'Solomon', 19945, 1),(10311, 'Melissa', 'Holmes', 33575, 1),(10316, 'Beth', 'Torres', 34902, 1),(10317, 'Pamela', 'Rodriguez', 48187, 4),(10320, 'Gregory', 'Cook', 22681, 4),(10324, 'William', 'Brewer', 15947, 1),(10329, 'Christopher', 'Ramos', 37710, 4),(10333, 'Jennifer', 'Blankenship', 13433, 4),(10339, 'Robert', 'Mills', 13188, 1);
+
+CREATE TABLE practice1 (id INT,department VARCHAR(50));
+
+INSERT INTO practice1 (id, department) VALUES(1, 'engineering'),(2, 'human resource'),(3, 'operation'),(4, 'marketing');
+
+select * from practice
+select * from practice1
+select ABS(MAX(CASE WHEN b.department ='marketing' then a.salary end)
+-max(CASE WHEN b.department='engineering' then a.salary end))as salary_diff from practice a
+join practice1 b on a.department_id=b.id
